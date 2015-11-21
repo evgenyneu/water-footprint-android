@@ -1,5 +1,6 @@
 package com.evgenii.waterfootprint;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,29 +13,43 @@ import android.widget.TextView;
  * Created by evgenii on 21/11/2015.
  */
 public class MySimpleArrayAdapter extends ArrayAdapter<String> {
-    private final Context context;
+    private final Activity context;
     private final String[] values;
 
-    public MySimpleArrayAdapter(Context context, String[] values) {
+    public MySimpleArrayAdapter(Activity context, String[] values) {
         super(context, R.layout.rowlayout, values);
         this.context = context;
         this.values = values;
     }
 
+    static class ViewHolder {
+        public TextView text;
+        public ImageView image;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.label);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        textView.setText(values[position]);
+        View rowView = convertView;
+
+        if (rowView == null) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            rowView = inflater.inflate(R.layout.rowlayout, null);
+
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.text = (TextView) rowView.findViewById(R.id.label);
+            viewHolder.image = (ImageView) rowView.findViewById(R.id.icon);
+            rowView.setTag(viewHolder);
+        }
+
+        // fill data
+        ViewHolder holder = (ViewHolder) rowView.getTag();
+        String text = values[position];
+        holder.text.setText(text);
         // change the icon for Windows and iPhone
-        String s = values[position];
-        if (s.startsWith("iPhone")) {
-            imageView.setImageResource(R.drawable.myimage);
+        if (text.startsWith("iPhone")) {
+            holder.image.setImageResource(R.drawable.myimage);
         } else {
-            imageView.setImageResource(R.drawable.myimage);
+            holder.image.setImageResource(R.drawable.another_image);
         }
 
         return rowView;
