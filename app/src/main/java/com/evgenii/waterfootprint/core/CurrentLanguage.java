@@ -8,8 +8,8 @@ import java.util.Locale;
  * Created by evgenii on 25/11/2015.
  */
 public class CurrentLanguage {
-    static String defaultLanguage = "en";
-    static List<String> supportedLanguages = Arrays.asList("en", "ja", "zh", "ru");
+    private static String defaultLanguage = "en";
+    private static List<String> supportedLanguages = Arrays.asList("en", "ja", "zh", "ru");
     static String languageCodeCache = null;
 
     static String currentLanguageCode() {

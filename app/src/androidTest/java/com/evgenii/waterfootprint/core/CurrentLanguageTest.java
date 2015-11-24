@@ -14,7 +14,7 @@ public class CurrentLanguageTest extends AndroidTestCase {
         assertEquals("zh", result);
     }
 
-    public void testGetEnglshLanguageIfUnsupportedLanguage() {
+    public void testGetEnglishLanguageIfUnsupportedLanguage() {
         CurrentLanguage.languageCodeCache = "zz";
         String result = CurrentLanguage.currentLanguageCode();
         assertEquals("en", result);
