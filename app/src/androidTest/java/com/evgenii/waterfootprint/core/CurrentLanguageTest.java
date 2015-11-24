@@ -7,7 +7,7 @@ public class CurrentLanguageTest extends AndroidTestCase {
     protected void tearDown() {
         CurrentLanguage.languageCodeCache = null;
     }
-    
+
     public void testGetCurrentLanguage() {
         CurrentLanguage.languageCodeCache = "zh";
         String result = CurrentLanguage.currentLanguageCode();
