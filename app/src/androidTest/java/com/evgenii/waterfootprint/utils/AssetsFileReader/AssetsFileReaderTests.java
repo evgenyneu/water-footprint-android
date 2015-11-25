@@ -9,13 +9,14 @@ public class AssetsFileReaderTests extends InstrumentationTestCase {
 
     @Override
     protected void setUp() {
-        assetsFileReader = new AssetsFileReader(getInstrumentation()
-                .getContext());
+        assetsFileReader = new AssetsFileReader(
+                getInstrumentation().getTargetContext().getApplicationContext());
     }
 
     public void testReadFile() throws IOException {
         String result = assetsFileReader
                 .ReadFile("data/data_en.tsv");
-        assertEquals("Hello\nWorld!\n日本語", result);
+
+        assertTrue(result.startsWith("Abaca fibre"));
     }
 }
