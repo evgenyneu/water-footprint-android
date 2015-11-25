@@ -4,7 +4,7 @@ import android.test.InstrumentationTestCase;
 
 import java.io.IOException;
 
-class AssetsFileReaderTest extends InstrumentationTestCase {
+public class AssetsFileReaderTests extends InstrumentationTestCase {
     protected AssetsFileReader assetsFileReader;
 
     @Override
@@ -15,7 +15,7 @@ class AssetsFileReaderTest extends InstrumentationTestCase {
 
     public void testReadFile() throws IOException {
         String result = assetsFileReader
-                .ReadFile("AssetsFileReader/read_file.txt");
+                .ReadFile("data/data_en.tsv");
         assertEquals("Hello\nWorld!\n日本語", result);
     }
 }

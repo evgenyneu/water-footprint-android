@@ -18,6 +18,6 @@ public class DataLoaderTests extends AndroidTestCase {
 
         List<ProductModel> result = DataLoader.loadForLanguage("en", fileReaderMock);
 
-        assertEquals(412, result.size());
+        assertEquals(0, result.size());
     }
 }
