@@ -9,6 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoader {
+    static List<ProductModel> productsCache;
+
+    static List<ProductModel> loadCached(AssetsFileReaderInterface fileReader) {
+        if (productsCache == null) {
+            productsCache = load(fileReader);
+        }
+
+        return productsCache;
+    }
 
     static List<ProductModel> load(AssetsFileReaderInterface fileReader) {
         String languageCode = CurrentLanguage.currentLanguageCode();

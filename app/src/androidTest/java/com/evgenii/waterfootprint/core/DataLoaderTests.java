@@ -8,12 +8,62 @@ import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterfa
 
 import junit.framework.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoaderTests extends InstrumentationTestCase {
 
     protected void tearDown() {
         CurrentLanguage.languageCodeCache = null;
+        DataLoader.productsCache = null;
+    }
+
+    public void testLoadCached() {
+        CurrentLanguage.languageCodeCache = "zh";
+
+        AssetsFileReaderInterface fileReader = new AssetsFileReader(
+                getInstrumentation().getTargetContext().getApplicationContext());
+
+        List<ProductModel> result = DataLoader.loadCached(fileReader);
+
+        assertEquals(233, result.size());
+
+        // Product first
+        // -----------
+
+        ProductModel productFirst = result.get(0);
+        assertEquals("八角", productFirst.name);
+        assertEquals("茴香，茴芹，大茴香", productFirst.synonyms);
+        assertEquals((int)8280, (int)productFirst.waterLitres);
+    }
+
+    public void testLoadCached_fromCache() {
+        CurrentLanguage.languageCodeCache = "zh";
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+
+        ProductModel productOne = new ProductModel();
+        productOne.name = "Test name";
+        productOne.synonyms = "Test synonym";
+        productOne.waterLitres = 5345;
+
+        products.add(productOne);
+
+        DataLoader.productsCache = products;
+
+        AssetsFileReaderInterface fileReader = new AssetsFileReader(
+                getInstrumentation().getTargetContext().getApplicationContext());
+
+        List<ProductModel> result = DataLoader.loadCached(fileReader);
+
+        assertEquals(1, result.size());
+
+        // Product first
+        // -----------
+
+        ProductModel productFirst = result.get(0);
+        assertEquals("Test name", productFirst.name);
+        assertEquals("Test synonym", productFirst.synonyms);
+        assertEquals((int)5345, (int)productFirst.waterLitres);
     }
 
     public void testLoad() {
