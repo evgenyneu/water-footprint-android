@@ -16,6 +16,42 @@ public class DataLoaderTests extends InstrumentationTestCase {
         CurrentLanguage.languageCodeCache = null;
     }
 
+    public void testLoad() {
+        CurrentLanguage.languageCodeCache = "ja";
+
+        AssetsFileReaderInterface fileReader = new AssetsFileReader(
+                getInstrumentation().getTargetContext().getApplicationContext());
+
+        List<ProductModel> result = DataLoader.load(fileReader);
+
+        assertEquals(231, result.size());
+
+        // Product first
+        // -----------
+
+        ProductModel productFirst = result.get(0);
+        assertEquals("アーティチョーク", productFirst.name);
+        assertEquals("", productFirst.synonyms);
+        assertEquals((int)818, (int)productFirst.waterLitres);
+    }
+
+    public void testLoadDataForLanguage() {
+        AssetsFileReaderInterface fileReader = new AssetsFileReader(
+                getInstrumentation().getTargetContext().getApplicationContext());
+
+        List<ProductModel> result = DataLoader.loadForLanguage("en", fileReader);
+
+        assertEquals(234, result.size());
+
+        // Product first
+        // -----------
+
+        ProductModel productFirst = result.get(0);
+        assertEquals("Abaca fibre", productFirst.name);
+        assertEquals("", productFirst.synonyms);
+        assertEquals((int)22654, (int)productFirst.waterLitres);
+    }
+
     public void testLoadTextForLanguage() {
         AssetsFileReaderInterface fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
@@ -25,17 +61,26 @@ public class DataLoaderTests extends InstrumentationTestCase {
         assert(result.startsWith("Abaca fibre"));
     }
 
-    public void testLoadDataForLanguage() {
-        AssetsFileReaderInterface fileReader = new AssetsFileReader(
-                getInstrumentation().getTargetContext().getApplicationContext());
-
-        List<ProductModel> result = DataLoader.loadForLanguage("en", fileReader);
-
-        assertEquals(0, result.size());
-    }
-
     public void testLoadDataFromText() {
         List<ProductModel> result = DataLoader.loadFromText("one\t11\t111\r\ntwo\t22\t222");
+
+        assertEquals(2, result.size());
+
+        // Product one
+        // -----------
+
+        ProductModel productOne = result.get(0);
+        assertEquals("one", productOne.name);
+        assertEquals("11", productOne.synonyms);
+        assertEquals((int)111, (int)productOne.waterLitres);
+
+        // Product two
+        // -----------
+
+        ProductModel productTwo = result.get(1);
+        assertEquals("two", productTwo.name);
+        assertEquals("22", productTwo.synonyms);
+        assertEquals((int)222, (int)productTwo.waterLitres);
     }
 
     // Load single product

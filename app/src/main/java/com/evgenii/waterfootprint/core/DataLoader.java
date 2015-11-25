@@ -10,7 +10,16 @@ import java.util.List;
 
 public class DataLoader {
 
+    static List<ProductModel> load(AssetsFileReaderInterface fileReader) {
+        String languageCode = CurrentLanguage.currentLanguageCode();
+        String text = loadTextForLanguage(languageCode, fileReader);
+        return loadFromText(text);
+    }
 
+    static List<ProductModel> loadForLanguage(String languageCode, AssetsFileReaderInterface fileReader) {
+        String text = loadTextForLanguage(languageCode, fileReader);
+        return loadFromText(text);
+    }
 
     static String loadTextForLanguage(String languageCode, AssetsFileReaderInterface fileReader) {
         String filePath = String.format("data/data_%s.tsv", languageCode);
@@ -23,13 +32,16 @@ public class DataLoader {
         }
     }
 
-    static List<ProductModel> loadForLanguage(String languageCode, AssetsFileReaderInterface fileReader) {
-        String text = loadTextForLanguage(languageCode, fileReader);
-        return new ArrayList<ProductModel>();
-    }
-
     static List<ProductModel> loadFromText(String text) {
-        return new ArrayList<ProductModel>();
+        String[] lines = text.split("\r\n");
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+
+        for(String line : lines) {
+            ProductModel product = loadSingleProductFromText(line);
+            products.add(product);
+        }
+
+        return products;
     }
 
     static ProductModel loadSingleProductFromText(String text) {
