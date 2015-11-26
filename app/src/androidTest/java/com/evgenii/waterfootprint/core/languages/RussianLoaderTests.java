@@ -10,12 +10,12 @@ import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterfa
 
 import java.util.List;
 
-public class EnglishLoaderTests extends InstrumentationTestCase {
+public class RussianLoaderTests extends InstrumentationTestCase {
 
     AssetsFileReaderInterface fileReader;
 
     protected void setUp() {
-        CurrentLanguage.languageCodeCache = "en";
+        CurrentLanguage.languageCodeCache = "ru";
 
         fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
@@ -29,31 +29,31 @@ public class EnglishLoaderTests extends InstrumentationTestCase {
     public void testLoadData() {
         List<ProductModel> result = DataLoader.loadCached(fileReader);
 
-        assertEquals(234, result.size());
+        assertEquals(230, result.size());
 
         // Product first
         // -----------
 
         ProductModel productFirst = result.get(0);
-        assertEquals("Abaca fibre", productFirst.name);
+        assertEquals("Абака, волокно", productFirst.name);
         assertEquals("", productFirst.synonyms);
         assertEquals((int)22654, (int)productFirst.waterLitres);
 
         // Product middle
         // -----------
 
-        ProductModel productMiddle = result.get(105);
-        assertEquals("Lamb", productMiddle.name);
-        assertEquals("Sheep meat, hogget, mutton", productMiddle.synonyms);
-        assertEquals((int)10412, (int)productMiddle.waterLitres);
+        ProductModel productMiddle = result.get(121);
+        assertEquals("Нут", productMiddle.name);
+        assertEquals("Турецкий орех, бараний горох, шиш", productMiddle.synonyms);
+        assertEquals((int)4177, (int)productMiddle.waterLitres);
 
         // Product last
         // -----------
 
         ProductModel productLast = result.get(result.size() - 1);
-        assertEquals("Yams", productLast.name);
+        assertEquals("Ячмень", productLast.name);
         assertEquals("", productLast.synonyms);
-        assertEquals((int)343, (int)productLast.waterLitres);
+        assertEquals((int)1423, (int)productLast.waterLitres);
     }
 
     public void testCheckDataTrimmed() {
