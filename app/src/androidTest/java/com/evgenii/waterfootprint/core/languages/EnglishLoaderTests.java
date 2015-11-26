@@ -38,6 +38,22 @@ public class EnglishLoaderTests extends InstrumentationTestCase {
         assertEquals("Abaca fibre", productFirst.name);
         assertEquals("", productFirst.synonyms);
         assertEquals((int)22654, (int)productFirst.waterLitres);
+
+        // Product middle
+        // -----------
+
+        ProductModel productMiddle = result.get(105);
+        assertEquals("Lamb", productMiddle.name);
+        assertEquals("Sheep meat, hogget, mutton", productMiddle.synonyms);
+        assertEquals((int)10412, (int)productMiddle.waterLitres);
+
+        // Product last
+        // -----------
+
+        ProductModel productLast = result.get(result.size() - 1);
+        assertEquals("Yams", productLast.name);
+        assertEquals("", productLast.synonyms);
+        assertEquals((int)343, (int)productLast.waterLitres);
     }
 
 }
