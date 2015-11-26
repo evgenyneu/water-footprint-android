@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoader {
-    static List<ProductModel> productsCache;
+    public static List<ProductModel> productsCache;
 
-    static List<ProductModel> loadCached(AssetsFileReaderInterface fileReader) {
+    public static List<ProductModel> loadCached(AssetsFileReaderInterface fileReader) {
         if (productsCache == null) {
             productsCache = load(fileReader);
         }

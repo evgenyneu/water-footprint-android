@@ -10,7 +10,7 @@ import java.util.Locale;
 public class CurrentLanguage {
     private static String defaultLanguage = "en";
     private static List<String> supportedLanguages = Arrays.asList("en", "ja", "zh", "ru");
-    static String languageCodeCache = null;
+    public static String languageCodeCache = null;
 
     static String currentLanguageCode() {
         if (languageCodeCache == null) {
