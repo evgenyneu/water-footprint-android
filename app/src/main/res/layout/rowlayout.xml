@@ -28,8 +28,4 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
     </TextView>
-
-
-
-
 </LinearLayout>
