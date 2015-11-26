@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.evgenii.waterfootprint.R;
 import com.evgenii.waterfootprint.core.ProductModel;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class ProductsAdapter extends ArrayAdapter<ProductModel> {
@@ -48,8 +49,14 @@ public class ProductsAdapter extends ArrayAdapter<ProductModel> {
         ProductViewHolder holder = (ProductViewHolder) rowView.getTag();
         ProductModel product = products.get(position);
         holder.product_name.setText(product.name);
-        holder.product_water_footprint.setText(product.waterLitres);
+        String waterLitresFormatted = ProductsAdapter.formatWaterFootprint(product.waterLitres);
+        holder.product_water_footprint.setText(waterLitresFormatted);
 
         return rowView;
+    }
+
+    public static String formatWaterFootprint(Integer value) {
+        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
+        return numberFormat.format(value);
     }
 }

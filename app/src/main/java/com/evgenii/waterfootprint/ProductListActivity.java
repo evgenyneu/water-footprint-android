@@ -1,58 +1,66 @@
 package com.evgenii.waterfootprint;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.evgenii.waterfootprint.core.CurrentLanguage;
+import com.evgenii.waterfootprint.core.DataLoader;
+import com.evgenii.waterfootprint.core.ProductModel;
+import com.evgenii.waterfootprint.list.ProductsAdapter;
+import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReader;
+import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterface;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
+    private BroadcastReceiver localeChangeReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        final ListView listview = (ListView) findViewById(R.id.listview);
-
-        String[] values = new String[] { "Android", "iPhone iPhone iPhone iPhone iPhone iPhone iPhone iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
-
-        final MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, values);
-        listview.setAdapter(adapter);
+        loadProductList();
+        registerLocaleChange();
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(localeChangeReceiver);
+    }
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+    private void registerLocaleChange() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.intent.action.LOCALE_CHANGED");
 
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
+        localeChangeReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                DataLoader.productsCache = null;
+                CurrentLanguage.languageCodeCache = null;
             }
-        }
+        };
 
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
+        registerReceiver(localeChangeReceiver, filter);
+    }
 
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
+    private void loadProductList() {
+        final ListView listview = (ListView) findViewById(R.id.listview);
 
+        AssetsFileReaderInterface assetsFileReader = new AssetsFileReader(this);
+        List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
+        ProductsAdapter adapter =  new ProductsAdapter(this, products);
+        listview.setAdapter(adapter);
     }
 }
 
