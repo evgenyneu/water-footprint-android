@@ -46,6 +46,8 @@ public class ProductListActivity extends AppCompatActivity {
         localeChangeReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                // Clear the product cache after user changed the language.
+                // The list of product will be regenerated using the new language settings.
                 DataLoader.productsCache = null;
             }
         };
