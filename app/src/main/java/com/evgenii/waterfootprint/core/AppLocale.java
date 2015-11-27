@@ -1,5 +1,12 @@
 package com.evgenii.waterfootprint.core;
 
+import java.util.Locale;
+
 public class AppLocale {
-    implement this
+    public static Locale localeOverrideUsedInTests;
+
+    public static Locale testGetCurrentLocale() {
+        if (localeOverrideUsedInTests != null) { return localeOverrideUsedInTests; }
+        return Locale.getDefault();
+    }
 }
