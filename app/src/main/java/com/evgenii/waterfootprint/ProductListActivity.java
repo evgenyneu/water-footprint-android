@@ -1,24 +1,23 @@
 package com.evgenii.waterfootprint;
 
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ListView;
+import android.widget.SearchView;
 
-import com.evgenii.waterfootprint.core.CurrentLanguage;
 import com.evgenii.waterfootprint.core.DataLoader;
 import com.evgenii.waterfootprint.core.ProductModel;
 import com.evgenii.waterfootprint.list.ProductsAdapter;
 import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReader;
 import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterface;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -62,6 +61,27 @@ public class ProductListActivity extends AppCompatActivity {
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.my_search).getActionView();
+
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+
+        return true;
     }
 }
 
