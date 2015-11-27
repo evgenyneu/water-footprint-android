@@ -2,20 +2,22 @@ package com.evgenii.waterfootprint.core;
 import android.test.AndroidTestCase;
 import com.evgenii.waterfootprint.core.CurrentLanguage;
 
+import java.util.Locale;
+
 public class CurrentLanguageTest extends AndroidTestCase {
 
     protected void tearDown() {
-        CurrentLanguage.languageCodeCache = null;
+        AppLocale.localeOverrideUsedInTests = null;
     }
 
     public void testGetCurrentLanguage() {
-        CurrentLanguage.languageCodeCache = "zh";
+        AppLocale.localeOverrideUsedInTests = Locale.SIMPLIFIED_CHINESE;
         String result = CurrentLanguage.currentLanguageCode();
         assertEquals("zh", result);
     }
 
     public void testGetEnglishLanguageIfUnsupportedLanguage() {
-        CurrentLanguage.languageCodeCache = "zz";
+        AppLocale.localeOverrideUsedInTests = Locale.KOREA;
         String result = CurrentLanguage.currentLanguageCode();
         assertEquals("en", result);
     }

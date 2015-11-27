@@ -2,6 +2,7 @@ package com.evgenii.waterfootprint.core.languages;
 
 import android.test.InstrumentationTestCase;
 
+import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.CurrentLanguage;
 import com.evgenii.waterfootprint.core.DataLoader;
 import com.evgenii.waterfootprint.core.ProductModel;
@@ -9,20 +10,21 @@ import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReader;
 import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterface;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ChineseLoaderTests extends InstrumentationTestCase {
 
     AssetsFileReaderInterface fileReader;
 
     protected void setUp() {
-        CurrentLanguage.languageCodeCache = "zh";
+        AppLocale.localeOverrideUsedInTests = Locale.SIMPLIFIED_CHINESE;
 
         fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
     }
 
     protected void tearDown() {
-        CurrentLanguage.languageCodeCache = null;
+        AppLocale.localeOverrideUsedInTests = null;
         DataLoader.productsCache = null;
     }
 

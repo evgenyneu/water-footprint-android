@@ -10,16 +10,17 @@ import junit.framework.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DataLoaderTests extends InstrumentationTestCase {
 
     protected void tearDown() {
-        CurrentLanguage.languageCodeCache = null;
+        AppLocale.localeOverrideUsedInTests = null;
         DataLoader.productsCache = null;
     }
 
     public void testLoadCached() {
-        CurrentLanguage.languageCodeCache = "zh";
+        AppLocale.localeOverrideUsedInTests = Locale.SIMPLIFIED_CHINESE;
 
         AssetsFileReaderInterface fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
@@ -38,7 +39,7 @@ public class DataLoaderTests extends InstrumentationTestCase {
     }
 
     public void testLoadCached_fromCache() {
-        CurrentLanguage.languageCodeCache = "zh";
+        AppLocale.localeOverrideUsedInTests = Locale.SIMPLIFIED_CHINESE;
         ArrayList<ProductModel> products = new ArrayList<ProductModel>();
 
         ProductModel productOne = new ProductModel();
@@ -67,7 +68,7 @@ public class DataLoaderTests extends InstrumentationTestCase {
     }
 
     public void testLoad() {
-        CurrentLanguage.languageCodeCache = "ja";
+        AppLocale.localeOverrideUsedInTests = Locale.JAPAN;
 
         AssetsFileReaderInterface fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());

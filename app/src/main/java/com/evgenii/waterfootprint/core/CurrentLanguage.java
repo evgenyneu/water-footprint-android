@@ -10,22 +10,19 @@ import java.util.Locale;
 public class CurrentLanguage {
     private static String defaultLanguage = "en";
     private static List<String> supportedLanguages = Arrays.asList("en", "ja", "zh", "ru");
-    public static String languageCodeCache = null;
 
     static String currentLanguageCode() {
-        if (languageCodeCache == null) {
-            languageCodeCache = Locale.getDefault().getLanguage();
+        String language = AppLocale.testGetCurrentLocale().getLanguage();
 
-            // getLanguage can return empty string when no language is set
-            if (languageCodeCache == null || languageCodeCache == "") {
-                languageCodeCache = defaultLanguage;
-            }
+        // getLanguage can return empty string when no language is set
+        if (language == null || language == "") {
+            return defaultLanguage;
         }
 
-        if (!supportedLanguages.contains(languageCodeCache)) {
-            languageCodeCache = defaultLanguage;
+        if (!supportedLanguages.contains(language)) {
+            return defaultLanguage;
         }
 
-        return languageCodeCache;
+        return language;
     }
 }

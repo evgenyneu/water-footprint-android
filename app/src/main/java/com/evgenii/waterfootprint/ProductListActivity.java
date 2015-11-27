@@ -47,7 +47,6 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DataLoader.productsCache = null;
-                CurrentLanguage.languageCodeCache = null;
             }
         };
 
