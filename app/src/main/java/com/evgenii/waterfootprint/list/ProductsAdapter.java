@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.evgenii.waterfootprint.R;
+import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.ProductModel;
 
 import java.text.NumberFormat;
@@ -56,7 +57,7 @@ public class ProductsAdapter extends ArrayAdapter<ProductModel> {
     }
 
     public static String formatWaterFootprint(Integer value) {
-        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
+        NumberFormat numberFormat = NumberFormat.getIntegerInstance(AppLocale.testGetCurrentLocale());
         return numberFormat.format(value);
     }
 }
