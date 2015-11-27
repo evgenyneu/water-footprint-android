@@ -12,6 +12,6 @@
         android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@color/colorShade60"
+        android:divider="@color/colorShade100"
         android:dividerHeight="@dimen/list_divider_height"/>
 </RelativeLayout>

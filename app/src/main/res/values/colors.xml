@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorShade10">#000000</color>
-    <color name="colorShade30">#222222</color>
-    <color name="colorShade60">#888888</color>
+    <color name="colorShade20">#222222</color>
     <color name="colorShade100">#FFFFFF</color>
     <color name="colorAccent">#FF4081</color>
 </resources>

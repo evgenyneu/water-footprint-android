@@ -3,10 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorShade30</item>
-        <item name="colorPrimaryDark">@color/colorShade30</item>
+        <item name="colorPrimary">@color/colorShade20</item>
+        <item name="colorPrimaryDark">@color/colorShade20</item>
         <item name="android:windowBackground">@color/colorShade10</item>
-        <item name="android:navigationBarColor">@color/colorShade30</item>
+        <item name="android:navigationBarColor">@color/colorShade20</item>
         <item name="android:textColor">@color/colorShade100</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
