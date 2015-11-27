@@ -2,33 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@+id/product_name"
-        android:textSize="20dp"
+        android:layout_weight="1"
 
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:gravity="center_vertical"
-        
+
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
         android:paddingRight="?android:attr/listPreferredItemPaddingRight"
-
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
     </TextView>
 
     <TextView
         android:id="@+id/product_water_footprint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@+id/product_water_footprint"
-        android:textSize="20dp"
 
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:gravity="center_vertical"
@@ -37,7 +36,6 @@
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
         android:paddingRight="?android:attr/listPreferredItemPaddingRight"
-
-        android:minHeight="?android:attr/listPreferredItemHeightSmall">
+        >
     </TextView>
 </LinearLayout>
