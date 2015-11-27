@@ -2,16 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".ProductListActivity">
 
+    <TextView
+        android:id="@+id/units_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/units"
+        android:textStyle="bold"
+
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:gravity="center_vertical|end"
+        android:textAlignment="viewEnd"
+        android:paddingTop="@dimen/list_item_vertical_padding"
+        android:paddingBottom="@dimen/list_item_vertical_padding"
+        android:paddingStart="@dimen/list_horizontal_margin"
+        android:paddingEnd="@dimen/list_horizontal_margin"
+        android:paddingRight="@dimen/list_horizontal_margin"
+        android:paddingLeft="@dimen/list_horizontal_margin"
+        >
+    </TextView>
+
+    <View android:id="@+id/units_dividor_view"
+        android:layout_below="@id/units_text_view"
+        android:layout_height="@dimen/list_divider_height"
+        android:layout_width="fill_parent"
+        android:background="@color/colorShade100" />
+
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listview"
+        android:layout_below="@id/units_dividor_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="@color/colorShade100"
-        android:dividerHeight="@dimen/list_divider_height"/>
+        android:dividerHeight="@dimen/list_divider_height"
+        />
 </RelativeLayout>
