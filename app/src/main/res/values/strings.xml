@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Water Footprint</string>
     <string name="units">Litre/kg</string>
+    <string name="search_edit_text_hint">Search product</string>
 </resources>
