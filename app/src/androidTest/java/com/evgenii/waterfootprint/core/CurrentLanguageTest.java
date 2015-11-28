@@ -6,7 +6,8 @@ import java.util.Locale;
 
 public class CurrentLanguageTest extends AndroidTestCase {
 
-    protected void tearDown() {
+    protected void tearDown() throws Exception {
+        super.tearDown();
         AppLocale.localeOverrideUsedInTests = null;
     }
 

@@ -16,14 +16,16 @@ public class JapaneseLoaderTests extends InstrumentationTestCase {
 
     AssetsFileReaderInterface fileReader;
 
-    protected void setUp() {
+    protected void setUp() throws Exception {
+        super.setUp();
         AppLocale.localeOverrideUsedInTests = Locale.JAPAN;
 
         fileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
     }
 
-    protected void tearDown() {
+    protected void tearDown() throws Exception {
+        super.tearDown();
         AppLocale.localeOverrideUsedInTests = null;
         DataLoader.productsCache = null;
     }

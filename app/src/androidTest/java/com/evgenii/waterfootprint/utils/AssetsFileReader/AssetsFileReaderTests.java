@@ -8,7 +8,8 @@ public class AssetsFileReaderTests extends InstrumentationTestCase {
     protected AssetsFileReader assetsFileReader;
 
     @Override
-    protected void setUp() {
+    protected void setUp() throws Exception {
+        super.setUp();
         assetsFileReader = new AssetsFileReader(
                 getInstrumentation().getTargetContext().getApplicationContext());
     }

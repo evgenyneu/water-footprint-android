@@ -14,7 +14,8 @@ import java.util.Locale;
 
 public class DataLoaderTests extends InstrumentationTestCase {
 
-    protected void tearDown() {
+    protected void tearDown() throws Exception {
+        super.tearDown();
         AppLocale.localeOverrideUsedInTests = null;
         DataLoader.productsCache = null;
     }

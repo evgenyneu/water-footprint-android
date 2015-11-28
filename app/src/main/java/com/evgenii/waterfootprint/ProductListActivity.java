@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -30,6 +33,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         loadProductList();
         registerLocaleChange();
+        registerKeyboardHide();
     }
 
     @Override
@@ -61,6 +65,21 @@ public class ProductListActivity extends AppCompatActivity {
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);
+    }
+
+    private void registerKeyboardHide() {
+        View.OnTouchListener listener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                findViewById(R.id.search_edit_text).clearFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                return false;
+            }
+        };
+
+        findViewById(R.id.units_text_view).setOnTouchListener(listener);
+        findViewById(R.id.listview).setOnTouchListener(listener);
     }
 }
 
