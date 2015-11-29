@@ -19,7 +19,7 @@ public class DataLoader {
         return productsCache;
     }
 
-    static List<ProductModel> load(AssetsFileReaderInterface fileReader) {
+    public static List<ProductModel> load(AssetsFileReaderInterface fileReader) {
         String languageCode = CurrentLanguage.currentLanguageCode();
         String text = loadTextForLanguage(languageCode, fileReader);
         return loadFromText(text);
