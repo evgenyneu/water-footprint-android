@@ -15,32 +15,4 @@ public class WaterStringTests extends AndroidTestCase {
 
         assertEquals("エンドウ豆（乾燥)", WaterString.removeDiacritic("エンドウ豆（乾燥)"));
     }
-
-    // Contains ignore case
-    // ------------
-
-    public void testContainsIgnoreCase() {
-        assertTrue(WaterString.containsIgnoreCase("Some long text", "long"));
-        assertTrue(WaterString.containsIgnoreCase("Some long text", "Long"));
-        assertTrue(WaterString.containsIgnoreCase("text", ""));
-        assertFalse(WaterString.containsIgnoreCase("Some long text", "No match"));
-        assertFalse(WaterString.containsIgnoreCase("", "No match"));
-    }
-
-    // Contains ignore case and diacritic
-    // ------------
-
-    public void testContainsIgnoreCaseAndDiacritic() {
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("Some long text", "long"));
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("чёрный", "черныи"));
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("чёрный", "Черныи"));
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("черныи", "чёрный"));
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("Черныи", "чёрный"));
-        assertTrue(WaterString.containsIgnoreCaseAndDiacritic("text", ""));
-    }
-
-    public void testContainsIgnoreCaseAndDiacritic_doesNotContain() {
-        assertFalse(WaterString.containsIgnoreCaseAndDiacritic("Some long text", "does not contain"));
-        assertFalse(WaterString.containsIgnoreCaseAndDiacritic("", "text"));
-    }
 }

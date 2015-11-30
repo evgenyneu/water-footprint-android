@@ -11,14 +11,4 @@ public class WaterString {
         return Normalizer.normalize(text, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
-
-    public static Boolean containsIgnoreCase(String text, String substring) {
-        return text.toLowerCase().contains(substring.toLowerCase());
-    }
-
-    public static Boolean containsIgnoreCaseAndDiacritic(String text, String substring) {
-        text = removeDiacritic(text).toLowerCase();
-        substring = removeDiacritic(substring).toLowerCase();
-        return text.contains(substring);
-    }
 }
