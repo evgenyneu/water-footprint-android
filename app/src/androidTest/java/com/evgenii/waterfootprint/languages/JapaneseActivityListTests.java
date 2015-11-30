@@ -55,4 +55,29 @@ public class JapaneseActivityListTests extends ActivityInstrumentationTestCase2<
 
         assertEquals("267", waterFootprintTextView.getText());
     }
+
+    public void testSearch() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.didChangeSearch("向日");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        ListView listView = (ListView) mActivity.findViewById(R.id.listview);
+        ListAdapter adapter = listView.getAdapter();
+        assertEquals(2, adapter.getCount());
+
+        // Show row
+        // ---------
+
+        View view = adapter.getView(0, null, null);
+
+        TextView nameTextView = (TextView) view
+                .findViewById(R.id.product_name);
+
+        assertEquals("ヒマワリ（種子）", nameTextView.getText());
+    }
 }

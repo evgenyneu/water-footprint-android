@@ -1,6 +1,7 @@
 package com.evgenii.waterfootprint.languages;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.UiThreadTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -56,5 +57,30 @@ public class EnglishActivityListTests extends ActivityInstrumentationTestCase2<P
                 .findViewById(R.id.product_water_footprint);
 
         assertEquals("5,401", waterFootprintTextView.getText());
+    }
+
+    public void testSearch() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.didChangeSearch("Meat");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        ListView listView = (ListView) mActivity.findViewById(R.id.listview);
+        ListAdapter adapter = listView.getAdapter();
+        assertEquals(5, adapter.getCount());
+
+        // Show row
+        // ---------
+
+        View view = adapter.getView(0, null, null);
+
+        TextView nameTextView = (TextView) view
+                .findViewById(R.id.product_name);
+
+        assertEquals("Beef", nameTextView.getText());
     }
 }

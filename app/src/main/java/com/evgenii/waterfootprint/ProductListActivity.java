@@ -108,7 +108,7 @@ public class ProductListActivity extends AppCompatActivity {
         });
     }
 
-    private void didChangeSearch(String searchText) {
+    public void didChangeSearch(String searchText) {
         final ListView listview = (ListView) findViewById(R.id.listview);
         AssetsFileReaderInterface assetsFileReader = new AssetsFileReader(this);
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);

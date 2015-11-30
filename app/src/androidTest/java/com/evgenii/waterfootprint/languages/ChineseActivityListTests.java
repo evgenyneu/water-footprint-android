@@ -54,4 +54,29 @@ public class ChineseActivityListTests extends ActivityInstrumentationTestCase2<P
 
         assertEquals("17,196", waterFootprintTextView.getText());
     }
+
+    public void testSearch() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.didChangeSearch("甘");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        ListView listView = (ListView) mActivity.findViewById(R.id.listview);
+        ListAdapter adapter = listView.getAdapter();
+        assertEquals(4, adapter.getCount());
+
+        // Show row
+        // ---------
+
+        View view = adapter.getView(0, null, null);
+
+        TextView nameTextView = (TextView) view
+                .findViewById(R.id.product_name);
+
+        assertEquals("甘蓝", nameTextView.getText());
+    }
 }

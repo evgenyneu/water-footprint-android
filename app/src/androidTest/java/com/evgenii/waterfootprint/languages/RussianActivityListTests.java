@@ -55,4 +55,29 @@ public class RussianActivityListTests extends ActivityInstrumentationTestCase2<P
 
         assertEquals("1 436", waterFootprintTextView.getText());
     }
+
+    public void testSearch() {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.didChangeSearch("черныи");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        ListView listView = (ListView) mActivity.findViewById(R.id.listview);
+        ListAdapter adapter = listView.getAdapter();
+        assertEquals(3, adapter.getCount());
+
+        // Show row
+        // ---------
+
+        View view = adapter.getView(0, null, null);
+
+        TextView nameTextView = (TextView) view
+                .findViewById(R.id.product_name);
+
+        assertEquals("Перец свежий", nameTextView.getText());
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ProductsAdapter extends ArrayAdapter<ProductModel> {
     private final Activity context;
-    private List<ProductModel> products;
+    public List<ProductModel> products;
 
     public ProductsAdapter(Activity context, List<ProductModel> products) {
         super(context, R.layout.product_row, products);
