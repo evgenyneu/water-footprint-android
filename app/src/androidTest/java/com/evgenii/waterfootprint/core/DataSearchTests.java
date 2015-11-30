@@ -82,6 +82,52 @@ public class DataSearchTests extends AndroidTestCase {
         assertEquals("Asparagus", result.get(0).name);
     }
 
+    public void testDataMatchingSearchText_noMatch() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Beef";
+        model1.synonyms = "Cow meat";
+
+        ProductModel model2 = new ProductModel();
+        model2.name = "Pork";
+        model2.synonyms = "Pig meat";
+
+        ProductModel model3 = new ProductModel();
+        model3.name = "Asparagus";
+        model3.synonyms = "";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+        products.add(model2);
+        products.add(model3);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "nomatch");
+
+        assertEquals(0, result.size());
+    }
+
+    public void testDataMatchingSearchText_noMatchOnlyOneWordMatches() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Beef";
+        model1.synonyms = "Cow meat";
+
+        ProductModel model2 = new ProductModel();
+        model2.name = "Pork";
+        model2.synonyms = "Pig meat";
+
+        ProductModel model3 = new ProductModel();
+        model3.name = "Asparagus";
+        model3.synonyms = "";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+        products.add(model2);
+        products.add(model3);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "chicken meat");
+
+        assertEquals(0, result.size());
+    }
+
     // Extract search words
     // ---------------------
     
