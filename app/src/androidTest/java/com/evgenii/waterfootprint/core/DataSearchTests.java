@@ -11,8 +11,18 @@ public class DataSearchTests extends AndroidTestCase {
         ProductModel model = new ProductModel();
         model.name = "Beef";
         model.synonyms = "Cow meat";
-        model.waterLitres = 15415;
 
         assertTrue(DataSearch.doesMatchSingleWord(model, "bee"));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "Meat"));
+        assertTrue(DataSearch.doesMatchSingleWord(model, ""));
+        assertFalse(DataSearch.doesMatchSingleWord(model, "nothing"));
+    }
+
+    public void testDoesMatchSingleWord_diacritic() {
+        ProductModel model = new ProductModel();
+        model.name = "Перец свежий";
+        model.synonyms = "Чили, красный, чёрный";
+
+        assertTrue(DataSearch.doesMatchSingleWord(model, "черный"));
     }
 }
