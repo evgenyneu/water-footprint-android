@@ -7,6 +7,81 @@ import java.util.List;
 
 public class DataSearchTests extends AndroidTestCase {
 
+    // Data matching sentence
+    // ---------------------
+
+    public void testDataMatchingSearchText() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Beef";
+        model1.synonyms = "Cow meat";
+
+        ProductModel model2 = new ProductModel();
+        model2.name = "Pork";
+        model2.synonyms = "Pig meat";
+
+        ProductModel model3 = new ProductModel();
+        model3.name = "Asparagus";
+        model3.synonyms = "";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+        products.add(model2);
+        products.add(model3);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "meat");
+
+        assertEquals(2, result.size());
+        assertEquals("Beef", result.get(0).name);
+        assertEquals("Pork", result.get(1).name);
+    }
+
+    public void testDataMatchingSearchText_emptySearch() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Beef";
+        model1.synonyms = "Cow meat";
+
+        ProductModel model2 = new ProductModel();
+        model2.name = "Pork";
+        model2.synonyms = "Pig meat";
+
+        ProductModel model3 = new ProductModel();
+        model3.name = "Asparagus";
+        model3.synonyms = "";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+        products.add(model2);
+        products.add(model3);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "");
+
+        assertEquals(0, result.size());
+    }
+
+    public void testDataMatchingSearchText_matchByName() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Beef";
+        model1.synonyms = "Cow meat";
+
+        ProductModel model2 = new ProductModel();
+        model2.name = "Pork";
+        model2.synonyms = "Pig meat";
+
+        ProductModel model3 = new ProductModel();
+        model3.name = "Asparagus";
+        model3.synonyms = "";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+        products.add(model2);
+        products.add(model3);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "asp");
+
+        assertEquals(1, result.size());
+        assertEquals("Asparagus", result.get(0).name);
+    }
+
     // Extract search words
     // ---------------------
     
@@ -67,6 +142,16 @@ public class DataSearchTests extends AndroidTestCase {
         List<String> words = new ArrayList<String>();
         words.add("checken");
         words.add("meat");
+
+        assertFalse(DataSearch.doesMatchSentence(model, words));
+    }
+
+    public void testDoesMatchSentence_emptyWords() {
+        ProductModel model = new ProductModel();
+        model.name = "Beef";
+        model.synonyms = "Cow meat";
+
+        List<String> words = new ArrayList<String>();
 
         assertFalse(DataSearch.doesMatchSentence(model, words));
     }

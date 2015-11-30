@@ -8,6 +8,22 @@ import java.util.List;
 
 public class DataSearch {
 
+    public static List<ProductModel> dataMatchingSearchText(List<ProductModel> models,
+                                                            String searchText) {
+
+        List<String> searchWords = extractSearchWords(searchText);
+
+        ArrayList<ProductModel> matchingModels = new ArrayList<ProductModel>();
+
+        for(ProductModel model: models) {
+            if (doesMatchSentence(model, searchWords)) {
+                matchingModels.add(model);
+            }
+        }
+
+        return matchingModels;
+    }
+
     public static List<String> extractSearchWords(String searchText) {
         String[] words = searchText.split("\\s+");
 
@@ -23,6 +39,8 @@ public class DataSearch {
     }
 
     public static Boolean doesMatchSentence(ProductModel model, List<String> words) {
+        if (words.size() == 0) { return false; }
+
         for (String word : words) {
             if (!doesMatchSingleWord(model, word)) {
                 return false;
