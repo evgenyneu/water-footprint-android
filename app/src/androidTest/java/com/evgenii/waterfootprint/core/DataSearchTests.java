@@ -35,7 +35,7 @@ public class DataSearchTests extends AndroidTestCase {
         assertEquals("Pork", result.get(1).name);
     }
 
-    public void testDataMatchingSearchText_emptySearch() {
+    public void testDataMatchingSearchText_returnAllWhenEmptySearch() {
         ProductModel model1 = new ProductModel();
         model1.name = "Beef";
         model1.synonyms = "Cow meat";
@@ -55,7 +55,7 @@ public class DataSearchTests extends AndroidTestCase {
 
         List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "");
 
-        assertEquals(0, result.size());
+        assertEquals(3, result.size());
     }
 
     public void testDataMatchingSearchText_matchByName() {
@@ -199,7 +199,7 @@ public class DataSearchTests extends AndroidTestCase {
 
         List<String> words = new ArrayList<String>();
 
-        assertFalse(DataSearch.doesMatchSentence(model, words));
+        assertTrue(DataSearch.doesMatchSentence(model, words));
     }
 
     // Match single word

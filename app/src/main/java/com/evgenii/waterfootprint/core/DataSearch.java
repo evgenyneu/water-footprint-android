@@ -39,7 +39,7 @@ public class DataSearch {
     }
 
     public static Boolean doesMatchSentence(ProductModel model, List<String> words) {
-        if (words.size() == 0) { return false; }
+        if (words.size() == 0) { return true; }
 
         for (String word : words) {
             if (!doesMatchSingleWord(model, word)) {
