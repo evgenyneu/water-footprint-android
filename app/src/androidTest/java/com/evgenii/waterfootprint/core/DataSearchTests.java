@@ -129,6 +129,7 @@ public class DataSearchTests extends AndroidTestCase {
     }
 
     public void testDataMatchingSearchText_matchDiacritic() {
+        SearchCache.clear();
         ProductModel model1 = new ProductModel();
         model1.name = "Перец свежий";
         model1.synonyms = "Чили, красный, чёрный";
@@ -229,6 +230,7 @@ public class DataSearchTests extends AndroidTestCase {
     }
 
     public void testDoesMatchSentence_ignoreDiacritic() {
+        SearchCache.clear();
         ProductModel model = new ProductModel();
         model.name = "Перец свежий";
         model.synonyms = "Чили, красный, чёрный";
@@ -240,6 +242,8 @@ public class DataSearchTests extends AndroidTestCase {
     }
 
     public void testDoesMatchSentence_matchDiacritic() {
+        SearchCache.clear();
+
         ProductModel model = new ProductModel();
         model.name = "Перец свежий";
         model.synonyms = "Чили, красный, чёрный";
@@ -265,11 +269,14 @@ public class DataSearchTests extends AndroidTestCase {
     }
 
     public void testDoesMatchSingleWord_diacritic() {
+
         ProductModel model = new ProductModel();
         model.name = "Перец свежий";
         model.synonyms = "Чили, красный, чёрный";
 
+        SearchCache.clear();
         assertFalse(DataSearch.doesMatchSingleWord(model, "черный", false));
+        SearchCache.clear();
         assertTrue(DataSearch.doesMatchSingleWord(model, "черный", true));
     }
 

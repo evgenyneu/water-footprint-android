@@ -83,6 +83,16 @@ public class RussianActivityListTests extends ActivityInstrumentationTestCase2<P
     }
 
     public void testSearchPerformance() {
+
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.didChangeSearch("черныи черныи");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
         final WaterRunTime runTime = new WaterRunTime();
 
         mActivity.runOnUiThread(new Runnable() {

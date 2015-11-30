@@ -54,23 +54,17 @@ public class DataSearch {
     }
 
     public static Boolean doesMatchSingleWord(ProductModel model, String word, Boolean ignoreDiacritic) {
-        if (ignoreDiacritic) {
-            // Slow match, used for languages that need it
-            if (WaterString.containsIgnoreCaseAndDiacritic(model.name, word)) {
-                return true;
-            }
+        word = SearchCache.get(word, ignoreDiacritic);
+        String name = SearchCache.get(model.name, ignoreDiacritic);
+        String synonyms = SearchCache.get(model.synonyms, ignoreDiacritic);
 
-            if (WaterString.containsIgnoreCaseAndDiacritic(model.synonyms, word)) {
-                return true;
-            }
-        } else {
-            if (WaterString.containsIgnoreCase(model.name, word)) {
-                return true;
-            }
 
-            if (WaterString.containsIgnoreCase(model.synonyms, word)) {
-                return true;
-            }
+        if (name.contains(word)) {
+            return true;
+        }
+
+        if (synonyms.contains(word)) {
+            return true;
         }
 
         return false;
