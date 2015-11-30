@@ -13,6 +13,7 @@ import com.evgenii.waterfootprint.ProductListActivity;
 import com.evgenii.waterfootprint.R;
 import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.DataLoader;
+import com.evgenii.waterfootprint.search_helpers.WaterRunTime;
 
 import java.util.Locale;
 
@@ -82,5 +83,23 @@ public class EnglishActivityListTests extends ActivityInstrumentationTestCase2<P
                 .findViewById(R.id.product_name);
 
         assertEquals("Beef", nameTextView.getText());
+    }
+
+    public void testSearchPerformance() {
+        final WaterRunTime runTime = new WaterRunTime();
+
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                runTime.startTime = System.currentTimeMillis();
+                mActivity.didChangeSearch("beef meat");
+                runTime.stopTime = System.currentTimeMillis();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        long timeElapsedMilliseconds = runTime.stopTime - runTime.startTime;
+        assertEquals(2, timeElapsedMilliseconds);
     }
 }
