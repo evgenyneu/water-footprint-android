@@ -7,6 +7,32 @@ import java.util.List;
 
 public class DataSearchTests extends AndroidTestCase {
 
+    // Extract search words
+    // ---------------------
+    
+    public void testExtractSearchWords() {
+        List<String> result = DataSearch.extractSearchWords("Beef");
+
+        assertEquals(1, result.size());
+        assertEquals("Beef", result.get(0));
+    }
+
+    public void testExtractSearchWords_ignoreSpaces() {
+        List<String> result = DataSearch.extractSearchWords("   Beef   \t\r\n ");
+
+        assertEquals(1, result.size());
+        assertEquals("Beef", result.get(0));
+    }
+
+    public void testExtractSearchWords_multipleWords() {
+        List<String> result = DataSearch.extractSearchWords("My lovely horse");
+
+        assertEquals(3, result.size());
+        assertEquals("My", result.get(0));
+        assertEquals("lovely", result.get(1));
+        assertEquals("horse", result.get(2));
+    }
+
     // Match sentence
     // ---------------------
 
