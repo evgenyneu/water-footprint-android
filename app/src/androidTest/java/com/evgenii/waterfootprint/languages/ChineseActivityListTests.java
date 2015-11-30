@@ -10,6 +10,7 @@ import com.evgenii.waterfootprint.ProductListActivity;
 import com.evgenii.waterfootprint.R;
 import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.DataLoader;
+import com.evgenii.waterfootprint.search_helpers.WaterRunTime;
 
 import java.util.Locale;
 
@@ -78,5 +79,23 @@ public class ChineseActivityListTests extends ActivityInstrumentationTestCase2<P
                 .findViewById(R.id.product_name);
 
         assertEquals("甘蓝", nameTextView.getText());
+    }
+
+    public void testSearchPerformance() {
+        final WaterRunTime runTime = new WaterRunTime();
+
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                runTime.startTime = System.nanoTime();
+                mActivity.didChangeSearch("甘 甘");
+                runTime.stopTime = System.nanoTime();;
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        double timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
+        assert(timeElapsedMilliseconds < 10);
     }
 }

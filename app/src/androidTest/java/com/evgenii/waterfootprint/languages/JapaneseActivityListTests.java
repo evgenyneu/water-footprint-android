@@ -11,6 +11,7 @@ import com.evgenii.waterfootprint.ProductListActivity;
 import com.evgenii.waterfootprint.R;
 import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.DataLoader;
+import com.evgenii.waterfootprint.search_helpers.WaterRunTime;
 
 import java.util.Locale;
 
@@ -79,5 +80,23 @@ public class JapaneseActivityListTests extends ActivityInstrumentationTestCase2<
                 .findViewById(R.id.product_name);
 
         assertEquals("ヒマワリ（種子）", nameTextView.getText());
+    }
+
+    public void testSearchPerformance() {
+        final WaterRunTime runTime = new WaterRunTime();
+
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                runTime.startTime = System.nanoTime();
+                mActivity.didChangeSearch("向日 向日");
+                runTime.stopTime = System.nanoTime();;
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        double timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
+        assertTrue(timeElapsedMilliseconds < 10);
     }
 }

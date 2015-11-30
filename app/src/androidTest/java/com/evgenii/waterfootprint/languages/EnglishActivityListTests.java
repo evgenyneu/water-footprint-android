@@ -91,15 +91,15 @@ public class EnglishActivityListTests extends ActivityInstrumentationTestCase2<P
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                runTime.startTime = System.currentTimeMillis();
+                runTime.startTime = System.nanoTime();
                 mActivity.didChangeSearch("beef meat");
-                runTime.stopTime = System.currentTimeMillis();
+                runTime.stopTime = System.nanoTime();;
             }
         });
 
         getInstrumentation().waitForIdleSync();
 
-        long timeElapsedMilliseconds = runTime.stopTime - runTime.startTime;
-        assertEquals(282347, timeElapsedMilliseconds);
+        double timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
+        assertTrue(timeElapsedMilliseconds < 10);
     }
 }
