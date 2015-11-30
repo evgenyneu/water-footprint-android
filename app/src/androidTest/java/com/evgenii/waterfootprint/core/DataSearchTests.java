@@ -28,7 +28,7 @@ public class DataSearchTests extends AndroidTestCase {
         products.add(model2);
         products.add(model3);
 
-        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "meat");
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "meat", false);
 
         assertEquals(2, result.size());
         assertEquals("Beef", result.get(0).name);
@@ -53,7 +53,7 @@ public class DataSearchTests extends AndroidTestCase {
         products.add(model2);
         products.add(model3);
 
-        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "");
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "", false);
 
         assertEquals(3, result.size());
     }
@@ -76,7 +76,7 @@ public class DataSearchTests extends AndroidTestCase {
         products.add(model2);
         products.add(model3);
 
-        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "asp");
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "asp", false);
 
         assertEquals(1, result.size());
         assertEquals("Asparagus", result.get(0).name);
@@ -100,7 +100,7 @@ public class DataSearchTests extends AndroidTestCase {
         products.add(model2);
         products.add(model3);
 
-        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "nomatch");
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "nomatch", false);
 
         assertEquals(0, result.size());
     }
@@ -123,9 +123,35 @@ public class DataSearchTests extends AndroidTestCase {
         products.add(model2);
         products.add(model3);
 
-        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "chicken meat");
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "chicken meat", false);
 
         assertEquals(0, result.size());
+    }
+
+    public void testDataMatchingSearchText_matchDiacritic() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Перец свежий";
+        model1.synonyms = "Чили, красный, чёрный";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "черныи", false);
+
+        assertEquals(0, result.size());
+    }
+
+    public void testDataMatchingSearchText_ignoreDiacritic() {
+        ProductModel model1 = new ProductModel();
+        model1.name = "Перец свежий";
+        model1.synonyms = "Чили, красный, чёрный";
+
+        ArrayList<ProductModel> products = new ArrayList<ProductModel>();
+        products.add(model1);
+
+        List<ProductModel> result = DataSearch.dataMatchingSearchText(products, "черныи", true);
+
+        assertEquals(1, result.size());
     }
 
     // Extract search words
@@ -166,7 +192,7 @@ public class DataSearchTests extends AndroidTestCase {
         words.add("beef");
         words.add("meat");
 
-        assertTrue(DataSearch.doesMatchSentence(model, words));
+        assertTrue(DataSearch.doesMatchSentence(model, words, false));
     }
 
     public void testDoesMatchSentence_oneWord() {
@@ -177,7 +203,7 @@ public class DataSearchTests extends AndroidTestCase {
         List<String> words = new ArrayList<String>();
         words.add("bee");
 
-        assertTrue(DataSearch.doesMatchSentence(model, words));
+        assertTrue(DataSearch.doesMatchSentence(model, words, false));
     }
 
     public void testDoesMatchSentence_noMatch() {
@@ -189,7 +215,7 @@ public class DataSearchTests extends AndroidTestCase {
         words.add("checken");
         words.add("meat");
 
-        assertFalse(DataSearch.doesMatchSentence(model, words));
+        assertFalse(DataSearch.doesMatchSentence(model, words, false));
     }
 
     public void testDoesMatchSentence_emptyWords() {
@@ -199,7 +225,29 @@ public class DataSearchTests extends AndroidTestCase {
 
         List<String> words = new ArrayList<String>();
 
-        assertTrue(DataSearch.doesMatchSentence(model, words));
+        assertTrue(DataSearch.doesMatchSentence(model, words, false));
+    }
+
+    public void testDoesMatchSentence_ignoreDiacritic() {
+        ProductModel model = new ProductModel();
+        model.name = "Перец свежий";
+        model.synonyms = "Чили, красный, чёрный";
+
+        List<String> words = new ArrayList<String>();
+        words.add("черный");
+
+        assertTrue(DataSearch.doesMatchSentence(model, words, true));
+    }
+
+    public void testDoesMatchSentence_matchDiacritic() {
+        ProductModel model = new ProductModel();
+        model.name = "Перец свежий";
+        model.synonyms = "Чили, красный, чёрный";
+
+        List<String> words = new ArrayList<String>();
+        words.add("черный");
+
+        assertFalse(DataSearch.doesMatchSentence(model, words, false));
     }
 
     // Match single word
@@ -210,10 +258,10 @@ public class DataSearchTests extends AndroidTestCase {
         model.name = "Beef";
         model.synonyms = "Cow meat";
 
-        assertTrue(DataSearch.doesMatchSingleWord(model, "bee"));
-        assertTrue(DataSearch.doesMatchSingleWord(model, "Meat"));
-        assertTrue(DataSearch.doesMatchSingleWord(model, ""));
-        assertFalse(DataSearch.doesMatchSingleWord(model, "nothing"));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "bee", false));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "Meat", false));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "", false));
+        assertFalse(DataSearch.doesMatchSingleWord(model, "nothing", false));
     }
 
     public void testDoesMatchSingleWord_diacritic() {
@@ -221,7 +269,8 @@ public class DataSearchTests extends AndroidTestCase {
         model.name = "Перец свежий";
         model.synonyms = "Чили, красный, чёрный";
 
-        assertTrue(DataSearch.doesMatchSingleWord(model, "черный"));
+        assertFalse(DataSearch.doesMatchSingleWord(model, "черный", false));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "черный", true));
     }
 
     public void testDoesMatchSingleWord_emptySynonym() {
@@ -229,8 +278,8 @@ public class DataSearchTests extends AndroidTestCase {
         model.name = "Перец свежий";
         model.synonyms = "";
 
-        assertTrue(DataSearch.doesMatchSingleWord(model, ""));
-        assertTrue(DataSearch.doesMatchSingleWord(model, "Перец"));
-        assertFalse(DataSearch.doesMatchSingleWord(model, "Nothing"));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "", false));
+        assertTrue(DataSearch.doesMatchSingleWord(model, "Перец", false));
+        assertFalse(DataSearch.doesMatchSingleWord(model, "Nothing", false));
     }
 }

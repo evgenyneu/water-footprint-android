@@ -113,7 +113,7 @@ public class ProductListActivity extends AppCompatActivity {
         AssetsFileReaderInterface assetsFileReader = new AssetsFileReader(this);
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
 
-        products = DataSearch.dataMatchingSearchText(products, searchText);
+        products = DataSearch.dataMatchingSearchText(products, searchText, true);
 
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);

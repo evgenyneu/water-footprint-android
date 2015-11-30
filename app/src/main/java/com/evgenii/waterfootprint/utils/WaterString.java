@@ -12,6 +12,10 @@ public class WaterString {
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
+    public static Boolean containsIgnoreCase(String text, String substring) {
+        return text.toLowerCase().contains(substring.toLowerCase());
+    }
+
     public static Boolean containsIgnoreCaseAndDiacritic(String text, String substring) {
         text = removeDiacritic(text).toLowerCase();
         substring = removeDiacritic(substring).toLowerCase();
