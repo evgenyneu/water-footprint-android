@@ -28,6 +28,7 @@ public class JapaneseActivityListTests extends ActivityInstrumentationTestCase2<
 
         AppLocale.localeOverrideUsedInTests = Locale.JAPAN;
         mActivity = getActivity();
+        mActivity.searchCache.clear();
     }
 
     protected void tearDown() throws Exception {

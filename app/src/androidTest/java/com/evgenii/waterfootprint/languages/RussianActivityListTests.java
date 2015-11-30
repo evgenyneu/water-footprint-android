@@ -28,6 +28,7 @@ public class RussianActivityListTests extends ActivityInstrumentationTestCase2<P
 
         AppLocale.localeOverrideUsedInTests = new Locale("ru");
         mActivity = getActivity();
+        mActivity.searchCache.clear();
     }
 
     protected void tearDown() throws Exception {
@@ -83,17 +84,26 @@ public class RussianActivityListTests extends ActivityInstrumentationTestCase2<P
     }
 
     public void testSearchPerformance() {
+        final WaterRunTime runTime = new WaterRunTime();
+
+        // Cache search on first run (slow)
+        // -------------
 
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                runTime.startTime = System.nanoTime();
                 mActivity.didChangeSearch("черныи черныи");
+                runTime.stopTime = System.nanoTime();;
             }
         });
 
         getInstrumentation().waitForIdleSync();
+        double timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
+        assert(timeElapsedMilliseconds > 10);
 
-        final WaterRunTime runTime = new WaterRunTime();
+        // Use cached search on second run (fast)
+        // -------------
 
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -106,7 +116,7 @@ public class RussianActivityListTests extends ActivityInstrumentationTestCase2<P
 
         getInstrumentation().waitForIdleSync();
 
-        double timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
-        assertEquals(345435, timeElapsedMilliseconds);
+        timeElapsedMilliseconds = (runTime.stopTime - runTime.startTime) / 1000_000.0;
+        assert(timeElapsedMilliseconds < 10);
     }
 }

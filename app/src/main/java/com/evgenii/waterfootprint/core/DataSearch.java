@@ -10,14 +10,15 @@ public class DataSearch {
 
     public static List<ProductModel> dataMatchingSearchText(List<ProductModel> models,
                                                             String searchText,
-                                                            Boolean ignoreDiacritic) {
+                                                            Boolean ignoreDiacritic,
+                                                            SearchCache searchCache) {
 
         List<String> searchWords = extractSearchWords(searchText);
 
         ArrayList<ProductModel> matchingModels = new ArrayList<ProductModel>();
 
         for(ProductModel model: models) {
-            if (doesMatchSentence(model, searchWords, ignoreDiacritic)) {
+            if (doesMatchSentence(model, searchWords, ignoreDiacritic, searchCache)) {
                 matchingModels.add(model);
             }
         }
@@ -40,12 +41,12 @@ public class DataSearch {
     }
 
     public static Boolean doesMatchSentence(ProductModel model, List<String> words,
-                                            Boolean ignoreDiacritic) {
+                                            Boolean ignoreDiacritic, SearchCache searchCache) {
 
         if (words.size() == 0) { return true; }
 
         for (String word : words) {
-            if (!doesMatchSingleWord(model, word, ignoreDiacritic)) {
+            if (!doesMatchSingleWord(model, word, ignoreDiacritic, searchCache)) {
                 return false;
             }
         }
@@ -53,10 +54,11 @@ public class DataSearch {
         return true;
     }
 
-    public static Boolean doesMatchSingleWord(ProductModel model, String word, Boolean ignoreDiacritic) {
-        word = SearchCache.get(word, ignoreDiacritic);
-        String name = SearchCache.get(model.name, ignoreDiacritic);
-        String synonyms = SearchCache.get(model.synonyms, ignoreDiacritic);
+    public static Boolean doesMatchSingleWord(ProductModel model, String word,
+                                              Boolean ignoreDiacritic, SearchCache searchCache) {
+        word = searchCache.get(word, ignoreDiacritic);
+        String name = searchCache.get(model.name, ignoreDiacritic);
+        String synonyms = searchCache.get(model.synonyms, ignoreDiacritic);
 
 
         if (name.contains(word)) {

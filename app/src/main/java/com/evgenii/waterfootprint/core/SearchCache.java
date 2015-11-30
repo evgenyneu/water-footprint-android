@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SearchCache {
-    static Map<String, String> cache = new HashMap<String, String>();
+    Map<String, String> cache = new HashMap<String, String>();
 
-    public static String get(String text, Boolean ignoreDiacritic) {
+    public String get(String text, Boolean ignoreDiacritic) {
         String value = cache.get(text);
 
         if (value == null) {
@@ -26,13 +26,13 @@ public class SearchCache {
         return value;
     }
 
-    static void clearIfTooLarge() {
-        if (cache.size() > 10000) {
-            cache.clear();
+    void clearIfTooLarge() {
+        if (cache.size() > 1000) {
+            clear();
         }
     }
 
-    static void clear() {
+    public void clear() {
         cache.clear();
     }
 }

@@ -31,6 +31,7 @@ public class EnglishActivityListTests extends ActivityInstrumentationTestCase2<P
 
         AppLocale.localeOverrideUsedInTests = Locale.ENGLISH;
         mActivity = getActivity();
+        mActivity.searchCache.clear();
     }
 
     protected void tearDown() throws Exception {

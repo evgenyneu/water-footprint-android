@@ -27,6 +27,7 @@ public class ChineseActivityListTests extends ActivityInstrumentationTestCase2<P
 
         AppLocale.localeOverrideUsedInTests = Locale.SIMPLIFIED_CHINESE;
         mActivity = getActivity();
+        mActivity.searchCache.clear();
     }
 
     protected void tearDown() throws Exception {

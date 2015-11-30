@@ -23,6 +23,7 @@ import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.DataLoader;
 import com.evgenii.waterfootprint.core.DataSearch;
 import com.evgenii.waterfootprint.core.ProductModel;
+import com.evgenii.waterfootprint.core.SearchCache;
 import com.evgenii.waterfootprint.list.ProductsAdapter;
 import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReader;
 import com.evgenii.waterfootprint.utils.AssetsFileReader.AssetsFileReaderInterface;
@@ -31,6 +32,7 @@ import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
     private BroadcastReceiver localeChangeReceiver;
+    public SearchCache searchCache = new SearchCache();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +117,7 @@ public class ProductListActivity extends AppCompatActivity {
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
 
         products = DataSearch.dataMatchingSearchText(products, searchText,
-                AppLocale.ignoreDiacritic());
+                AppLocale.ignoreDiacritic(), searchCache);
 
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);
