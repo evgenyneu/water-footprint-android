@@ -61,6 +61,7 @@ public class ProductListActivity extends AppCompatActivity {
                 // Clear the product cache after user changed the language.
                 // The list of product will be regenerated using the new language settings.
                 DataLoader.productsCache = null;
+                searchCache.clear();
             }
         };
 
