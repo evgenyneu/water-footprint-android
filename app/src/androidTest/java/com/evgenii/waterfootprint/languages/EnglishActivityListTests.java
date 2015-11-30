@@ -100,6 +100,6 @@ public class EnglishActivityListTests extends ActivityInstrumentationTestCase2<P
         getInstrumentation().waitForIdleSync();
 
         long timeElapsedMilliseconds = runTime.stopTime - runTime.startTime;
-        //assertEquals(282347, timeElapsedMilliseconds);
+        assertEquals(282347, timeElapsedMilliseconds);
     }
 }

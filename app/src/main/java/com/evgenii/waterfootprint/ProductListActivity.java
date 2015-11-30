@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.evgenii.waterfootprint.core.AppLocale;
 import com.evgenii.waterfootprint.core.DataLoader;
 import com.evgenii.waterfootprint.core.DataSearch;
 import com.evgenii.waterfootprint.core.ProductModel;
@@ -113,7 +114,8 @@ public class ProductListActivity extends AppCompatActivity {
         AssetsFileReaderInterface assetsFileReader = new AssetsFileReader(this);
         List<ProductModel> products = DataLoader.loadCached(assetsFileReader);
 
-        products = DataSearch.dataMatchingSearchText(products, searchText, true);
+        products = DataSearch.dataMatchingSearchText(products, searchText,
+                AppLocale.ignoreDiacritic());
 
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);
