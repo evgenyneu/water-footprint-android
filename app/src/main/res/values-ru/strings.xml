@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Водный след</string>
+    <string name="search_edit_text_hint">Поиск</string>
+    <string name="units">Литр/кг</string>
+</resources>
