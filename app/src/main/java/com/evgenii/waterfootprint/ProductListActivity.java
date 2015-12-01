@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -43,6 +44,7 @@ public class ProductListActivity extends AppCompatActivity {
         registerLocaleChange();
         registerKeyboardHide();
         setupInputChange();
+        updateClearButton();
     }
 
     @Override
@@ -100,6 +102,7 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 didChangeSearch(searchEditText.getText().toString());
+                updateClearButton();
             }
 
             @Override
@@ -122,6 +125,22 @@ public class ProductListActivity extends AppCompatActivity {
 
         ProductsAdapter adapter =  new ProductsAdapter(this, products);
         listview.setAdapter(adapter);
+    }
+
+    public void didTapClearSearchButton(View view) {
+        final EditText searchEditText = (EditText) findViewById(R.id.search_edit_text);
+        searchEditText.setText("");
+    }
+
+    public void updateClearButton() {
+        final EditText searchEditText = (EditText) findViewById(R.id.search_edit_text);
+        Button clearSearchButton = (Button) findViewById(R.id.clear_search_button);
+
+        if (searchEditText.getText().toString().isEmpty()) {
+            clearSearchButton.setVisibility(View.INVISIBLE);
+        } else {
+            clearSearchButton.setVisibility(View.VISIBLE);
+        }
     }
 }
 

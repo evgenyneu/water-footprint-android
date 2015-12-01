@@ -11,9 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@+id/product_name"
+        android:textSize="@dimen/font_size_body"
         android:layout_weight="1"
-
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:gravity="start|center_vertical"
         android:textAlignment="viewStart"
         android:paddingStart="@dimen/list_horizontal_margin"
@@ -30,8 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@+id/product_water_footprint"
-
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textSize="@dimen/font_size_body"
         android:gravity="end|center_vertical"
 
         android:paddingStart="@dimen/list_horizontal_margin"
