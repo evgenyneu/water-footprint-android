@@ -15,8 +15,13 @@ Data used in this app is released under the Creative Commons Attribution Non-com
 1. Mekonnen, M.M. and Hoekstra, A.Y. (2011) The green, blue and grey water footprint of crops and derived crop products, Hydrology and Earth System Sciences, 15, 1577-1600.
 1. Mekonnen, M.M. and Hoekstra, A.Y. (2012) A global assessment of the water footprint of farm animal products, Ecosystems, 15, 401-415.
 
+## Rerefence
+
+Water Footprint is [also awailable](http://evgenii.com/projects/water-footprint-app-ios-android/) on iOS.
+
 ## License
 
 The Water Footprint is distributed under [Creative Commons Attribution Non-commercial License](/LICENSE).
 
 <img src="https://raw.githubusercontent.com/evgenyneu/water-footprint-android/master/Graphics/Readme/water_footprint_for_android_english.png" alt="Water Footprint for Android" width="320">
+
