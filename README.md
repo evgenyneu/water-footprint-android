@@ -2,7 +2,7 @@
 
 This is an Android app that shows how much water (in litres) is required to produce a number of agricultural products. For example, to make a kilo of cheese one needs to use about 5 thousand litres of freshwater.
 
-<a href='https://play.google.com/store/apps/details?id=com.evgenii.waterfootprint' title='Get it on Google Play'><img src='https://raw.githubusercontent.com/evgenyneu/water-footprint-ios/master/Graphics/Readme/appstore_badge.png' height="60" alt='Get Water Footprint on Google Play' class='AppStoreBadge'></a>
+<a href='https://play.google.com/store/apps/details?id=com.evgenii.waterfootprint' title='Get it on Google Play'><img src='https://raw.githubusercontent.com/evgenyneu/water-footprint-android/master/Graphics/Readme/google_play_badge.png' height="70" alt='Get Water Footprint on Google Play' class='AppStoreBadge'></a>
 
 ## Help me localizing the app
 
