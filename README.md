@@ -6,7 +6,7 @@ This is an Android app that shows how much water (in litres) is required to prod
 
 Water Footprint is [also available](http://evgenii.com/projects/water-footprint-app-ios-android/) on iOS.
 
-## Help me localizing the app
+## Help me to localize the app
 
 Currently the app is available in Chinese, English, Japanese and Russian languages. I would be grateful if you can help me translate the app to other languages. Translation includes the list of agricultural products (500 words), the app title, description (400 words) and a couple of words in the UI.
 
