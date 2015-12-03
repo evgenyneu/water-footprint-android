@@ -19,4 +19,4 @@ Data used in this app is released under the Creative Commons Attribution Non-com
 
 The Water Footprint is distributed under [Creative Commons Attribution Non-commercial License](/LICENSE).
 
-<img src="https://raw.githubusercontent.com/evgenyneu/water-footprint-ios/master/Graphics/Readme/water_footprint_ios_english.png" alt="Water Footprint for Android" width="320">
+<img src="https://raw.githubusercontent.com/evgenyneu/water-footprint-android/master/Graphics/Readme/water_footprint_for_android_english.png" alt="Water Footprint for Android" width="320">
