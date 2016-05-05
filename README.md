@@ -4,7 +4,7 @@ This is an Android app that shows how much water (in litres) is required to prod
 
 <a href='https://play.google.com/store/apps/details?id=com.evgenii.waterfootprint' title='Get it on Google Play'><img src='https://raw.githubusercontent.com/evgenyneu/water-footprint-android/master/Graphics/Readme/google_play_badge.png' height="70" alt='Get Water Footprint on Google Play' class='AppStoreBadge'></a>
 
-Water Footprint is also available on [iOS](http://evgenii.com/projects/water-footprint-app-ios-android/) and [Web](http://evgenii.com/water-footprint/en/).
+Water Footprint is [also available](http://evgenii.com/projects/water-footprint-app-ios-android/) on iOS and Web.
 
 ## Help me to localize the app
 
