@@ -85,7 +85,15 @@ public class ProductListActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 findViewById(R.id.search_edit_text).clearFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                View view = getCurrentFocus();
+                if (view == null) {
+                    view = v;
+                }
+
+                android.os.IBinder binder = view.getWindowToken();
+
+                imm.hideSoftInputFromWindow(binder, 0);
                 return false;
             }
         };
