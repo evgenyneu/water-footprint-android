@@ -153,5 +153,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime-1.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: android.test.base-android-28" level="project" />
+    <orderEntry type="library" name="Gradle: android.test.runner-android-28" level="project" />
   </component>
 </module>
